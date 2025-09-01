@@ -25,7 +25,7 @@ export SCRATCH="/lustre/fsn1/projects/rech/tdm/ulu88xb"
 export HF_HOME="$SCRATCH/HF"
 
 set -x
-cd $SCRATCH/crrrocq
+cd $SCRATCH/tptp-to-mizar
 
 head_node=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1)
 
@@ -35,4 +35,4 @@ srun torchrun \
             --rdzv-backend=c10d \
             --rdzv-endpoint=${head_node}:29500 \
             --rdzv-id=abc123 \
-            -m src.training.training --config-file "config/training/nemo.yaml"
+            -m training.training --config-file "config/training/nemo.yaml"
