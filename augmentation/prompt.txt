@@ -1,0 +1,105 @@
+You are given a TPTP proof output (including axioms, conjecture, CNF clauses, and refutation). 
+Your task is to explain the proof in the style of a research discovery diary. 
+The diary should be written in "Step 1, Step 2, ..." format. 
+
+Guidelines:
+- Do not assume prior knowledge of the final human proof. 
+- Start from the conjecture and show how one can gradually figure out what the symbols mean by looking at their roles in the axioms and clauses. 
+- Whenever possible, interpret predicates and function symbols (e.g. k3_..., u1_..., v2_...) by describing their structural role (e.g. "this seems to represent a sequence of operations" or "this looks like a restriction of a function"), even if the actual Mizar or mathematical name is unknown.
+- Group clauses into thematic insights: 
+  - clauses about domain equality, 
+  - clauses about pointwise equality, 
+  - lemmas about restriction to carrier sets, 
+  - closure of the contradiction. 
+- Simulate the process of discovery: 
+  - begin by restating the conjecture in plain words, 
+  - observe the axioms and identify patterns, 
+  - explain how these patterns suggest a strategy, 
+  - follow the refutation clauses step by step, highlighting how they force the reasoning, 
+  - end by reconstructing a high-level human-style proof strategy. 
+- Avoid "guessing" names from the final proof; instead, gradually hypothesize their meaning from the TPTP symbols and only then propose likely alignments. 
+- The output should be narrative, not just a list of clauses. It should feel like a researcher keeping notes while figuring out how the machine proof works. 
+
+Example of input/ouput pair:
+
+Input:
+Formal statement:
+reserve x,x1,x2,... for set;
+theorem
+  {{ x1,x1,x1,x1 }} = {{ x1 }};
+
+TPTP proof:
+Proof found!
+# SZS status Theorem
+# SZS output start CNFRefutation
+fof(t42_enumset1, conjecture, ![X1]:k2_enumset1(X1,X1,X1,X1)=k1_tarski(X1), file('/scratch/mptp/predsminms1/t42_enumset1__0', t42_enumset1)).
+fof(t29_enumset1, axiom, ![X1]:k2_tarski(X1,X1)=k1_tarski(X1), file('/scratch/mptp/predsminms1/t42_enumset1__0', t29_enumset1)).
+fof(t37_enumset1, axiom, ![X1, X2]:k2_enumset1(X1,X1,X1,X2)=k2_tarski(X1,X2), file('/scratch/mptp/predsminms1/t42_enumset1__0', t37_enumset1)).
+fof(c_0_3, negated_conjecture, ~(![X1]:k2_enumset1(X1,X1,X1,X1)=k1_tarski(X1)), inference(assume_negation,[status(cth)],[t42_enumset1])).
+fof(c_0_4, negated_conjecture, k2_enumset1(esk1_0,esk1_0,esk1_0,esk1_0)!=k1_tarski(esk1_0), inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[c_0_3])])])).
+fof(c_0_5, plain, ![X4]:k2_tarski(X4,X4)=k1_tarski(X4), inference(variable_rename,[status(thm)],[t29_enumset1])).
+fof(c_0_6, plain, ![X5, X6]:k2_enumset1(X5,X5,X5,X6)=k2_tarski(X5,X6), inference(variable_rename,[status(thm)],[t37_enumset1])).
+cnf(c_0_7, negated_conjecture, (k2_enumset1(esk1_0,esk1_0,esk1_0,esk1_0)!=k1_tarski(esk1_0)), inference(split_conjunct,[status(thm)],[c_0_4])).
+cnf(c_0_8, plain, (k2_tarski(X1,X1)=k1_tarski(X1)), inference(split_conjunct,[status(thm)],[c_0_5])).
+cnf(c_0_9, plain, (k2_enumset1(X1,X1,X1,X2)=k2_tarski(X1,X2)), inference(split_conjunct,[status(thm)],[c_0_6])).
+cnf(c_0_10, negated_conjecture, ($false), inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(rw,[status(thm)],[c_0_7, c_0_8]), c_0_9])])).
+cnf(c_0_11, negated_conjecture, ($false), inference(evalgc,[status(thm)],[c_0_10]), ['proof']).
+# SZS output end CNFRefutation
+
+target proof:
+thus {{x1,x1,x1,x1}} = {{x1,x1}} by Th37
+  .= {{x1}} by Th29;
+
+Output:
+
+Step 1. Reading the conjecture
+The conjecture says: for any X1, k2_enumset1(X1,X1,X1,X1) = k1_tarski(X1).
+This looks like: a 4-element enumeration with all entries equal reduces to a singleton.
+So the target theorem is {{x1,x1,x1,x1}} = {{x1}}.
+
+Step 2. Looking at the axioms
+- Axiom t37_enumset1: a 4-enumeration with three identical elements and one arbitrary element reduces to a 2-enumeration. 
+  In set-builder terms: {{x1,x1,x1,x2}} = {{x1,x2}}.
+- Axiom t29_enumset1: a 2-enumeration with duplicates reduces to a singleton. 
+  So {{x1,x1}} = {{x1}}.
+
+Step 3. Negating the conjecture
+The prover assumes: k2_enumset1(x1,x1,x1,x1) ≠ k1_tarski(x1).
+
+Step 4. First rewrite (using Th37)
+From t37_enumset1 with X2 = X1:
+  k2_enumset1(x1,x1,x1,x1) = k2_tarski(x1,x1).
+In words: {{x1,x1,x1,x1}} = {{x1,x1}}.
+
+Step 5. Second rewrite (using Th29)
+From t29_enumset1:
+  k2_tarski(x1,x1) = k1_tarski(x1).
+In words: {{x1,x1}} = {{x1}}.
+
+Step 6. Contradiction
+So we have: {{x1,x1,x1,x1}} = {{x1,x1}} = {{x1}}.
+This contradicts the assumption that they were not equal.
+Therefore the theorem holds.
+
+Step 7. Human-style reconstruction
+thus {{x1,x1,x1,x1}} = {{x1,x1}} by Th37
+  .= {{x1}} by Th29;
+
+End of example.
+
+Usage:
+- Walk through the refutation step by step in "Step N" style.
+- Translate each resolution or rewrite into a human-style reasoning step.
+- Finish by reconstructing the clean human proof from the discovered strategy.
+
+Input:
+Formal statement:
+{formal_statement}
+
+TPTP proof:
+{tptp_proof}
+
+target proof (beware, your reasoning must never mention this proof directly since you are supposed to genuinely discover it):
+{target_proof}
+
+Write directly the diary, starting your output by "Step 1. ..."
