@@ -3,6 +3,10 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# data
+export/
+key.txt
+
 # C extensions
 *.so
 
