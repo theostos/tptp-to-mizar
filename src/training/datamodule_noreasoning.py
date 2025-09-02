@@ -106,8 +106,7 @@ class MirzaDataModuleNoReasoning(FineTuningDataModule, IOMixin):
         ignore_idx = len(input_ids) * [0]
 
         target_proof = example['target_proof']
-        reasoning = example['reasoning']
-        output = self.prompt['output'].format(reasoning=reasoning, target_proof=target_proof)
+        output = self.prompt['output'].format(target_proof=target_proof)
         content_ids = self.tokenizer_hf(output)['input_ids']
         input_ids += content_ids
         ignore_idx += len(content_ids) * [1]
