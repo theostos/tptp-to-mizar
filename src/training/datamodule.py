@@ -52,7 +52,7 @@ class MirzaDataModule(FineTuningDataModule, IOMixin):
         dataset_kwargs: Optional[Dict[str, Any]] = None,
         dataset_root: str = "export/dataset/",
         dataset_raw_filepath: str = "export/dataset/train.json",
-        prompt_filepath: str = "export/dataset/prompt.json",
+        prompt_filepath: str = "config/prompts/prompt.json",
         dataset_preprocess_filepath: str = ""
     ):
         self.tokenizer_hf = tokenizer_hf

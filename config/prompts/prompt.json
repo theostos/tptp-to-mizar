@@ -1,0 +1,5 @@
+{
+    "instruction": "You are given a formal statement and a TPTP proof. Your task is to produce two things:\n\n1. A discovery-style reasoning process, where you explain step by step how one could reconstruct a human-style proof from the machine proof. This reasoning must be enclosed between <think> and </think> tags.\n\n2. The final human-readable proof of the statement, written in Mizar style, enclosed within \\boxed{{ ... }}. First, your reasoning between <think> and </think>.\n Then, the final Mizar proof inside \\boxed{{...}}. TPTP proof:\n{tptp_proof}\nFormal_statement:\n{formal_statement}.",
+    "output": "<think>\n{reasoning}\n</think>\n\\boxed{{{target_proof}}}"
+  }
+  

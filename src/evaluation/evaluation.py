@@ -12,7 +12,7 @@ if __name__ == '__main__':
     parser.add_argument('--eval', default='export/dataset/eval.json', help='Dataset')
     parser.add_argument('--model-path', default='mirza_reasoner/', help='model')
     parser.add_argument('--tokenizer-path', default='mirza_reasoner/', help='tokenizer')
-    parser.add_argument('--prompt-path', default='export/dataset/prompt.json', help='prompt')
+    parser.add_argument('--prompt-path', default='config/prompts/prompt.json', help='prompt')
     parser.add_argument('--output', default='export/eval', help='Output directory')
     parser.add_argument('--k', type=int, default=32, help='Number of generation per entry')
     parser.add_argument('--temperature', type=float, default=0.7, help='Temperature')
