@@ -14,7 +14,7 @@ trainer:
   devices: auto
   accelerator: gpu
   accumulate_grad_batches: 1
-  max_steps: 2800
+  max_steps: 320
   log_every_n_steps: 1
   limit_val_batches: 0
   val_check_interval: 0
@@ -39,8 +39,8 @@ optimizer:
   bf16: true
 
 scheduler:
-  warmup_steps: 140
-  max_steps: 2800
+  warmup_steps: 50
+  max_steps: 320
   constant_steps: 0
   min_lr: 0.0
 
