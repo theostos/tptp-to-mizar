@@ -11,7 +11,7 @@
 #SBATCH --time=04:30:00 # maximal duration "(HH:MM:SS)"
 #SBATCH --qos=qos_gpu_h100-t3 # QoS
 #SBATCH --hint=nomultithread # no hyperthreading
-#SBATCH --account=tdm@h100 # account
+#SBATCH --account=mmr@h100 # account
 
 module purge
 conda deactivate
