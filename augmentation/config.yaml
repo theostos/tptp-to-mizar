@@ -1,5 +1,0 @@
-base_url: "https://openrouter.ai/api/v1"
-request_config:
-    model: "google/gemini-2.5-pro"
-    extra_body: 
-        include_reasoning: true
