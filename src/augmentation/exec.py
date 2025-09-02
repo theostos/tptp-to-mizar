@@ -62,7 +62,7 @@ if __name__ == '__main__':
     with open(args.input, 'r') as file:
         dataset = json.load(file)
     
-    for k, entry in enumerate(dataset):
+    for k, entry in enumerate(dataset['train']):
         prompt = prompt_template.format(tptp_proof=entry['tptp_proof'], formal_statement=entry['formal_statement'], target_proof=entry['target_proof'])
         filepath = os.path.join(args.suboutput, entry['source'])
         if not os.path.exists(filepath):

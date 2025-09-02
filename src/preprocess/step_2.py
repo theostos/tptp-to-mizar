@@ -45,8 +45,8 @@ if __name__ == '__main__':
             result_train.append(entry)
     
     with open(os.path.join(args.output, 'train.json'), 'w') as file:
-        json.dump(result_train[:args.max_len], file, indent=4)
+        json.dump({"train": result_train[:args.max_len]}, file, indent=4)
     with open(os.path.join(args.output, 'eval.json'), 'w') as file:
-        json.dump(result_eval[:args.max_len], file, indent=4)
+        json.dump({"eval": result_eval[:args.max_len]}, file, indent=4)
 
 
