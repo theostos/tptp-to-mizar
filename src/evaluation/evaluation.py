@@ -34,14 +34,25 @@ if __name__ == '__main__':
     sampling_params.n = args.k  # This tells vLLM to generate k completions per prompt.
     for entry in tqdm(dataset):
         prompt_text = prompt_template['instruction'].format(tptp_proof=entry['tptp_proof'], formal_statement=entry['formal_statement'])
-        outputs = llm.generate([prompt_text], sampling_params)
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path, trust_remote_code=True)
+
+        messages = [
+            {"role": "user", "content": prompt_text}
+        ]
+        prompt = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+        )
+
+        outputs = llm.generate([prompt], sampling_params)
         # Each output in "outputs" is a RequestOutput object containing a list of completions.
         result = []
         for output in outputs:
             for completion in output.outputs:
                 result.append(completion.text)
         
-        new_entry = {"source": entry['source'], "outputs": [{"content": completion} for completion in result]}
+        new_entry = entry | {"outputs": [{"content": completion} for completion in result]}
         filepath = os.path.join(args.output, entry['source'])
         with open(filepath, 'w') as file:
             json.dump(new_entry, file, indent=4)
