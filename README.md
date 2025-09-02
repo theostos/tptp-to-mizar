@@ -1,6 +1,6 @@
 # TPTP-to-Mizar
 
-This project is an experimental translator that converts **TPTP** proofs into **Mizar** human readable proof.  
+Mizarify is an experimental translator that converts **TPTP** proofs into **Mizar** human readable proof.  
 It leverages synthetic chain-of-thought reasoning and simple test-time scaling to produce Mizar proofs.
 
 ## Key ideas
