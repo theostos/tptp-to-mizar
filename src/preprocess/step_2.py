@@ -14,9 +14,9 @@ Preprocess dataset
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', default='export/dataset/metadata.json')
-    parser.add_argument('--output', default='export/dataset/')
-    parser.add_argument('--threshold', type=int, default=5500)
-    parser.add_argument('--max-len', type=int, default=1000)
+    parser.add_argument('--output', default='export/dataset_noreasoning/')
+    parser.add_argument('--threshold', type=int, default=15_000)
+    parser.add_argument('--max-len', type=int, default=10000)
     args = parser.parse_args()
     with open(args.input, 'r') as file:
         metadata = json.load(file)
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         if not "\nproof\n" in data_out:
             entry = {'source': source, 'tptp_proof': data_in, 'formal_statement': data_out}
             result_eval.append(entry)
-        else:
+        elif data_out.count('\nproof\n') == 1:
             formal_statement, proof = data_out.split('\nproof\n')
             proof = proof.strip()
             assert proof.endswith('end;')
