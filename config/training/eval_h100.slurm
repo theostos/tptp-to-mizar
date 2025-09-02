@@ -24,6 +24,7 @@ conda activate nemo
 export SCRATCH="/lustre/fsn1/projects/rech/tdm/ulu88xb"
 export HF_HOME="$SCRATCH/HF"
 export NEMO_HOME="$SCRATCH/NEMO"
+cd $SCRATCH/tptp-to-mizar
 
-python -m src.training.evaluation
+python -m src.evaluation.evaluation
 
