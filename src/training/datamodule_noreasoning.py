@@ -171,7 +171,7 @@ if __name__ == '__main__':
 
     model_name = config_file['model_name']
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    dm = MirzaDataModule(tokenizer_hf=tokenizer)
+    dm = MirzaDataModuleNoReasoning(tokenizer_hf=tokenizer)
     dm.prepare_data()
     if args.debug:
         ds = dm._create_dataset()
