@@ -51,7 +51,7 @@ class MirzaDataModuleNoReasoning(FineTuningDataModule, IOMixin):
         packed_sequence_specs: Optional["PackedSequenceSpecs"] = None,
         dataset_kwargs: Optional[Dict[str, Any]] = None,
         dataset_root: str = "export/dataset/",
-        dataset_raw_filepath: str = "export/dataset/train.json",
+        dataset_raw_filepath: str = "export/dataset/train_noreasoning.json",
         prompt_filepath: str = "export/dataset/prompt_noreasoning.json",
         dataset_preprocess_filepath: str = ""
     ):
