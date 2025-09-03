@@ -26,4 +26,4 @@ export HF_HOME="$SCRATCH/HF"
 export NEMO_HOME="$SCRATCH/NEMO"
 cd $SCRATCH/tptp-to-mizar
 
-python -m src.evaluation.evaluation --output "export/eval_noreasoning_${SLURM_JOB_ID}" --model-path mirza_noreasoning/ --tokenizer-path mirza_noreasoning/ --prompt-path config/prompts/prompt_noreasoning.json
+python -m src.evaluation.evaluation --output "export/eval_noreasoning_${SLURM_JOB_ID}" --model-path mirza_noreasoning/ --tokenizer-path mirza_noreasoning/ --temperature 0.9 --prompt-path config/prompts/prompt_noreasoning.json
